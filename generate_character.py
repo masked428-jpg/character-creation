@@ -33,35 +33,35 @@ COMBAT_STATUS_COUNT = 10  # 戦闘系能力値の数 (STATUS_NAMESの前半)
 
 # 種族別の得意・苦手能力を定義
 RACE_STATS_MODIFIERS = {
-    "人間族": {
+    "平原人": {
         "weak": [],
         "strong": []
     },
-    "エルフ族": {
+    "エルフ": {
         "weak": ["腕力", "耐久", "政治力"],
         "strong": ["魔力", "照準力", "学力"]
     },
-    "ドワーフ族": {
+    "ドワーフ": {
         "weak": ["敏捷", "騎乗", "社交性"],
         "strong": ["腕力", "耐久", "工作"]
     },
-    "獣人族": {
+    "獣人": {
         "weak": ["学力", "政治力", "魔力"],
         "strong": ["腕力", "敏捷", "持久力"]
     },
-    "鳥人族": {
+    "鳥人": {
         "weak": ["腕力", "耐久", "工作"],
         "strong": ["機転", "騎乗", "芸術"]
     },
-    "竜人族": {
+    "竜人": {
         "weak": ["調理", "芸術", "社交性"],
         "strong": ["統率", "耐久", "魔法抵抗"]
     },
-    "妖精族": {
+    "妖精": {
         "weak": ["腕力", "耐久", "持久力"],
         "strong": ["魔力", "魅力", "幸運"]
     },
-    "人魚族": {
+    "人魚": {
         "weak": ["腕力", "持久力", "幸運"],
         "strong": ["魔力", "騎乗", "魅力"]
     }
@@ -171,20 +171,20 @@ def generate_character_raw_data(gender_choice=None, race_choice=None, ethics_cho
     base_age = random.randint(10, 60)
     age = base_age
     human_equivalent_age = base_age
-    if race in ["竜人族", "ドワーフ族"]:
+    if race in ["竜人", "ドワーフ"]:
         age *= 5
-    elif race == "エルフ族":
+    elif race == "エルフ":
         age *= 20
 
     height = round(random.normalvariate(160, 17.37))
     height = max(120, min(200, height))
-    if race == "竜人族":
+    if race == "竜人":
         height += 50
-    elif race == "ドワーフ族":
+    elif race == "ドワーフ":
         height -= 50
-    elif race == "妖精族":
+    elif race == "妖精":
         height -= 100
-    # 人魚族の身長は人間モードを想定し、人間族の基準と同じにする
+    # 人魚の身長は人間モードを想定し、平原人の基準と同じにする
 
     # 倫理観 (Ethics) - 5x5対応
     ethics = 50
@@ -225,10 +225,10 @@ def generate_character_raw_data(gender_choice=None, race_choice=None, ethics_cho
     statuses = generate_statuses_strict_one_talent(STATUS_NAMES, race)
 
     # 種族に応じて「騎乗」を「飛行」または「遊泳」に変換
-    if race in ["鳥人族", "妖精族"]:
+    if race in ["鳥人", "妖精"]:
         if "騎乗" in statuses:
             statuses["飛行"] = statuses.pop("騎乗")
-    elif race == "人魚族":
+    elif race == "人魚":
         if "騎乗" in statuses:
             statuses["遊泳"] = statuses.pop("騎乗")
 
@@ -244,10 +244,10 @@ def generate_character_raw_data(gender_choice=None, race_choice=None, ethics_cho
 
     # 合計値計算の前に、表示用のステータスリストを種族に応じて調整
     display_status_names = STATUS_NAMES.copy()
-    if race in ["鳥人族", "妖精族"]:
+    if race in ["鳥人", "妖精"]:
         if "騎乗" in display_status_names:
             display_status_names[display_status_names.index("騎乗")] = "飛行"
-    elif race == "人魚族":
+    elif race == "人魚":
         if "騎乗" in display_status_names:
             display_status_names[display_status_names.index("騎乗")] = "遊泳"
 
@@ -312,10 +312,10 @@ def display_character(char_raw_data):
 
     race_for_display = char_raw_data.get('race')
     display_sample_names = STATUS_NAMES.copy()
-    if race_for_display in ["鳥人族", "妖精族"]:
+    if race_for_display in ["鳥人", "妖精"]:
         if "騎乗" in display_sample_names:
             display_sample_names[display_sample_names.index("騎乗")] = "飛行"
-    elif race_for_display == "人魚族":
+    elif race_for_display == "人魚":
         if "騎乗" in display_sample_names:
             display_sample_names[display_sample_names.index("騎乗")] = "遊泳"
 
@@ -503,4 +503,5 @@ if __name__ == '__main__':
 
         print("\n--- 引数に基づいてキャラクターを生成中 ---")
         char_raw_data = generate_character_raw_data(**params)
+
         display_character(char_raw_data)
