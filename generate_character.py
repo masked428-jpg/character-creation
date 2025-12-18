@@ -26,48 +26,6 @@ def get_random_sacred_name():
     return random.choice(SACRED_NAMES)
 
 
-# 能力値生成関連の定数と関数
-STATUS_NAMES = ["腕力", "耐久", "持久力", "敏捷", "照準力", "魔力", "魔法抵抗", "信仰", "統率", "騎乗",
-                "学力", "機転", "政治力", "調理", "味覚", "芸術", "工作", "社交性", "魅力", "幸運"]
-COMBAT_STATUS_COUNT = 10  # 戦闘系能力値の数 (STATUS_NAMESの前半)
-
-# 種族別の得意・苦手能力を定義
-RACE_STATS_MODIFIERS = {
-    "平原人": {
-        "weak": [],
-        "strong": []
-    },
-    "エルフ": {
-        "weak": ["腕力", "耐久", "政治力"],
-        "strong": ["魔力", "照準力", "学力"]
-    },
-    "ドワーフ": {
-        "weak": ["敏捷", "騎乗", "社交性"],
-        "strong": ["腕力", "耐久", "工作"]
-    },
-    "獣人": {
-        "weak": ["学力", "政治力", "魔力"],
-        "strong": ["腕力", "敏捷", "持久力"]
-    },
-    "鳥人": {
-        "weak": ["腕力", "耐久", "工作"],
-        "strong": ["機転", "騎乗", "芸術"]
-    },
-    "竜人": {
-        "weak": ["調理", "芸術", "社交性"],
-        "strong": ["統率", "耐久", "魔法抵抗"]
-    },
-    "妖精": {
-        "weak": ["腕力", "耐久", "持久力"],
-        "strong": ["魔力", "魅力", "幸運"]
-    },
-    "人魚": {
-        "weak": ["腕力", "持久力", "幸運"],
-        "strong": ["魔力", "騎乗", "魅力"]
-    }
-}
-
-
 def generate_normal_value(mu, sigma, min_val, max_val):
     """指定された範囲内に収まるように正規分布から値を生成するヘルパー関数"""
     temp_value = random.normalvariate(mu, sigma)
@@ -505,3 +463,4 @@ if __name__ == '__main__':
         char_raw_data = generate_character_raw_data(**params)
 
         display_character(char_raw_data)
+
