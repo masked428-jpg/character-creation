@@ -131,7 +131,7 @@ def generate_character_raw_data(gender_choice=None, race_choice=None, ethics_cho
     human_equivalent_age = base_age
     if race in ["竜人", "ドワーフ"]:
         age *= 5
-    elif race == "エルフ":
+    elif race in ["エルフ", "吸血鬼"]:
         age *= 20
 
     height = round(random.normalvariate(160, 17.37))
@@ -463,4 +463,5 @@ if __name__ == '__main__':
         char_raw_data = generate_character_raw_data(**params)
 
         display_character(char_raw_data)
+
 
